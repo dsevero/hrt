@@ -20,7 +20,8 @@ def fit_elastic_net_ccle(X, y, nfolds=10):
     #                     cv=nfolds)
     enet = ElasticNetCV(l1_ratio=0.2, # It always chooses l1_ratio=0.2
                         alphas=np.exp(np.linspace(-6, 5, 250)),
-                        cv=nfolds)
+                        cv=nfolds,
+                        n_jobs=os.cpu_count() - 1)
     print('Fitting via CV')
     enet.fit(X,y)
     alpha, l1_ratio = enet.alpha_, enet.l1_ratio_
@@ -165,7 +166,7 @@ def load_plx4720(verbose=False):
         torch.save(elastic_model, MODEL_PATH)
 
         # Plot the fit to show it's pretty good
-        plot_ccle_predictions(elastic_model, X_drug, y_drug)
+        # plot_ccle_predictions(elastic_model, X_drug, y_drug)
 
         # Show the features selected by the heuristic if we fit this way (may be slightly different than in the paper)
         if verbose:
