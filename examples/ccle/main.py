@@ -12,7 +12,7 @@ from pyhrt.continuous import calibrate_continuous
 from pyhrt.discrete import calibrate_discrete
 
 # Run elastic net regression for each drug, choosing lambda via 10-fold CV
-def fit_elastic_net_ccle(X, y, nfolds=2):
+def fit_elastic_net_ccle(X, y, nfolds=10):
     from sklearn.linear_model import ElasticNetCV
 
     # The parameter l1_ratio corresponds to alpha in the glmnet R package
